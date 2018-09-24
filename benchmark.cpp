@@ -55,7 +55,7 @@ int run_benchmark(unsigned int buffer_size)
         //Subtract time to accesss vals consecutively in array/iters
         long double adjusted_time = (time_span.count() - rand_array_time.count()) / 1000;
         
-        cout << buffer_size << "\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
+        cout << buffer_size << "\t\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
 
         return 0;
 
