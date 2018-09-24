@@ -23,7 +23,6 @@ unsigned int return_rand(unsigned int upper_limit)
 int run_benchmark(unsigned int buffer_size)
 {
 
-        //string str1 = "abcdefghijklmnopqrstuvwxyz";
         string buffer(buffer_size, 'a');//Create a string of bufferlength of chars
         srand(time(NULL));//Seed rand
 
@@ -44,8 +43,22 @@ int run_benchmark(unsigned int buffer_size)
         steady_clock::time_point t2 = steady_clock::now();
         duration<double> time_span = duration_cast<duration<double>>(t2 - t1);
         long double mean_time = time_span.count() / 1000;
-        cout << buffer_size << "\t\t" << mean_time << '\n';
+
+        steady_clock::time_point t3 = steady_clock::now();
+                for (unsigned int i = 0; i<1000; i++) //access a part of memory #accesses times
+                {
+                        unsigned int testing_time = rand_array[i]; //Just need to access values - Throws error, but most accurate timing
+                }
+
+        steady_clock::time_point t4 = steady_clock::now();
+        duration<double> rand_array_time = duration_cast<duration<double>>(t4 - t3);
+        //Subtract time to accesss vals consecutively in array/iters
+        long double adjusted_time = (time_span.count() - rand_array_time.count()) / 1000;
+        
+        cout << buffer_size << "\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
+
         return 0;
+
 }
 
 int main ()
