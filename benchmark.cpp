@@ -5,7 +5,11 @@
 
 using namespace std;
 using namespace std::chrono;
+//const int prime_array = {809, 5, 7, 11, 13, 17, 19, 1223, 29, 31, 37, 1979, 43, 47, 53, 59, 61, 67, 3331, 1613, 941};
 
+//int hash(unsigned int upper_limit, unsigned int val)
+//{
+//}
 //returns the char of the <buffer_string> at index <val>
 char access_val(string buffer_string,unsigned int val)
 {
@@ -28,8 +32,9 @@ int run_benchmark(unsigned int buffer_size)
         string buffer(buffer_size, 'a');//Create a string of bufferlength of chars
         srand(time(NULL));//Seed rand
 
-        unsigned int rand_array [100000];
-        for (int j= 0; j<100000; j++)
+        unsigned int* rand_array = NULL;
+        rand_array = new unsigned int[buffer_size];
+        for (unsigned int j= 0; j<buffer_size; j++)
         {
                 rand_array[j]= return_rand(buffer_size);
         }
@@ -37,28 +42,29 @@ int run_benchmark(unsigned int buffer_size)
 
         //time this
         clock_gettime(CLOCK_MONOTONIC, &t0);
-                for (unsigned int i = 0; i<100000; i++) //access a part of memory #accesses times
+                for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
                 {
                         access_val(buffer, rand_array[i]);
                 }
         //time end. mean time = div by iters.
         clock_gettime(CLOCK_MONOTONIC, &t1);
-        const double time_span = (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec)) / (double) 100000;
-        long double mean_time = time_span / 100000;
+        const double time_span = (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec)) / (double) buffer_size;
+        long double mean_time = time_span / buffer_size;
 
         clock_gettime(CLOCK_MONOTONIC, &t2);
-                for (unsigned int i = 0; i<100000; i++) //access a part of memory #accesses times
+                for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
                 {
                         unsigned int testing_time = rand_array[i]; //Just need to access values - Throws error, but most accurate timing
                 }
 
         clock_gettime(CLOCK_MONOTONIC, &t3);
-        const double rand_array_time = (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec)) / (double) 100000;
+        const double rand_array_time = (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec)) / (double) buffer_size;
         //Subtract time to accesss vals consecutively in array/iters
-        long double adjusted_time = (time_span - rand_array_time) / 1000;
+        long double adjusted_time = (time_span - rand_array_time) / buffer_size;
 
         cout << buffer_size << "\t\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
 
+        delete [] rand_array;
         return 0;
 
 }
@@ -73,3 +79,4 @@ int main ()
         }
         return 0;
 }
+                                                                                                                                            
