@@ -5,11 +5,7 @@
 
 using namespace std;
 using namespace std::chrono;
-//const int prime_array = {809, 5, 7, 11, 13, 17, 19, 1223, 29, 31, 37, 1979, 43, 47, 53, 59, 61, 67, 3331, 1613, 941};
 
-//int hash(unsigned int upper_limit, unsigned int val)
-//{
-//}
 //returns the char of the <buffer_string> at index <val>
 char access_val(string buffer_string,unsigned int val)
 {
