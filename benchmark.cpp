@@ -45,35 +45,35 @@ int run_benchmark(unsigned int buffer_size)
         }
 
         floodcache(); //Flood out rand array and access info for "clean" start
-        
+
         for (unsigned int n = 0; n<buffer_size;n++)//want all of our buffer to first be stored into the cache.
         {
                 char y = buffer[n];
         }
 
 
-        
+
         //time this
-        clock_gettime(CLOCK_MONOTONIC, &t0);
-                for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
+        clock_gettime(CLOCK_MONOTONIC_RAW, &t0);
+        for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
                 {
                         access_val(buffer, rand_array[i]);
                 }
         //time end. mean time = div by iters.
-        clock_gettime(CLOCK_MONOTONIC, &t1);
+        clock_gettime(CLOCK_MONOTONIC_RAW, &t1);
         const double time_span = (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec)) / (double) buffer_size;
-        long double mean_time = time_span / buffer_size;
+        long double mean_time = time_span;
 
-        clock_gettime(CLOCK_MONOTONIC, &t2);
+        clock_gettime(CLOCK_MONOTONIC_RAW, &t2);
                 for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
                 {
                         unsigned int testing_time = rand_array[i]; //Just need to access values - Throws error, but most accurate timing
                 }
 
-        clock_gettime(CLOCK_MONOTONIC, &t3);
+        clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
         const double rand_array_time = (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec)) / (double) buffer_size;
         //Subtract time to accesss vals consecutively in array/iters
-        long double adjusted_time = (time_span - rand_array_time) / buffer_size;
+        long double adjusted_time = time_span - rand_array_time;
 
         cout << buffer_size << "\t\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
 
@@ -87,10 +87,9 @@ int main ()
         int buffer_size = 1024;
         while (buffer_size <= 67108864)
         {
-                
+
                 run_benchmark(buffer_size);
                 buffer_size *= 2;
         }
         return 0;
 }
-                                                                                                                                            
