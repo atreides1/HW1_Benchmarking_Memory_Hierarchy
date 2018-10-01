@@ -3,5 +3,4 @@ set ylabel "Mean Time (ns)"
 set xlabel "Buffer Length (Bytes)"
 set title "Mean Time (ns) of n Random Accesses 10 times to Buffer of n Bytes"
 set logscale x 2
-set logscale y 10
 replot
