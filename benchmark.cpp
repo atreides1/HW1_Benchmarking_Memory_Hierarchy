@@ -79,9 +79,9 @@ int run_benchmark(unsigned int buffer_size)
         //Measure time to iter through rand array since it affects time measured above. Subtract this from time_span to get mean adj time
         unsigned int testing_time;
         clock_gettime(CLOCK_MONOTONIC_RAW, &t2);
-                for (unsigned int i = 0; i<buffer_size; q++) 
+                for (unsigned int i = 0; i<buffer_size; i++) 
                 {
-                        unsigned int testing_time = rand_array[i]; 
+                        testing_time = rand_array[i]; 
                 }
 
         clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
