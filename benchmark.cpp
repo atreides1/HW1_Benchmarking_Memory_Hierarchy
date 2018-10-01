@@ -64,12 +64,21 @@ int run_benchmark(unsigned int buffer_size)
         return 0;
 
 }
-
+void floodcache()
+{
+        const int six_MB = 6000000;
+        string long_string(six_MB, 'm' ); //create a string, then read it so it fills the cache
+        for (int k=0; k<six_MB;k++)
+        {
+                char j = long_string[k];
+        }
+}
 int main ()
 {
         int buffer_size = 1024;
         while (buffer_size <= 67108864)
         {
+                floodcache();
                 run_benchmark(buffer_size);
                 buffer_size *= 2;
         }
