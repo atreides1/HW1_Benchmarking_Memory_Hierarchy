@@ -19,7 +19,7 @@ void floodcache()
         string long_string(six_MB, 'm' ); 
         /*On occasion, single character values will be established, used, then posted after a loop
         This is to ensure the compiler does not "optimize" out unused variables.
-        he produced column of these printed characters is ignored in our final evaluation of data*/
+        The produced column of these printed characters is ignored in our final evaluation of data*/
         char p;
         for (int k=0; k<six_MB;k++)
         {
