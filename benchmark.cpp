@@ -35,7 +35,13 @@ int run_benchmark(unsigned int buffer_size)
                 rand_array[j]= return_rand(buffer_size);
         }
 
+        for (unsigned int n = 0; n<buffer_size;n++)//want all of our buffer to first be stored into the cache.
+        {
+                char y = buffer[n];
+        }
 
+
+        
         //time this
         clock_gettime(CLOCK_MONOTONIC, &t0);
                 for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
