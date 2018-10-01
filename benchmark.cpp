@@ -17,6 +17,15 @@ unsigned int return_rand(unsigned int upper_limit)
 {
         return rand()%upper_limit;
 }
+void floodcache()
+{
+        const int six_MB = 6000000;
+        string long_string(six_MB, 'm' ); //create a string, then read it so it fills the cache
+        for (int k=0; k<six_MB;k++)
+        {
+                char j = long_string[k];
+        }
+}
 
 //loops and randomly populates a buffer of <buffer_size>
 //then measures the latency of accessing multiple bytes
@@ -35,6 +44,8 @@ int run_benchmark(unsigned int buffer_size)
                 rand_array[j]= return_rand(buffer_size);
         }
 
+        floodcache(); //Flood out rand array and access info for "clean" start
+        
         for (unsigned int n = 0; n<buffer_size;n++)//want all of our buffer to first be stored into the cache.
         {
                 char y = buffer[n];
@@ -70,21 +81,13 @@ int run_benchmark(unsigned int buffer_size)
         return 0;
 
 }
-void floodcache()
-{
-        const int six_MB = 6000000;
-        string long_string(six_MB, 'm' ); //create a string, then read it so it fills the cache
-        for (int k=0; k<six_MB;k++)
-        {
-                char j = long_string[k];
-        }
-}
+
 int main ()
 {
         int buffer_size = 1024;
         while (buffer_size <= 67108864)
         {
-                floodcache();
+                
                 run_benchmark(buffer_size);
                 buffer_size *= 2;
         }
