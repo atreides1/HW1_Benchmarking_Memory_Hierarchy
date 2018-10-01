@@ -6,25 +6,22 @@
 using namespace std;
 using namespace std::chrono;
 
-//returns the char of the <buffer_string> at index <val>
-char access_val(string buffer_string,unsigned int val)
-{
-        return buffer_string[val];
-}
-
 //returns a random value
 unsigned int return_rand(unsigned int upper_limit)
 {
         return rand()%upper_limit;
 }
+
 void floodcache()
 {
         const int six_MB = 6000000;
         string long_string(six_MB, 'm' ); //create a string, then read it so it fills the cache
+        char p;
         for (int k=0; k<six_MB;k++)
         {
-                char j = long_string[k];
+                p = long_string[k];
         }
+        cout << p;
 }
 
 //loops and randomly populates a buffer of <buffer_size>
@@ -45,22 +42,30 @@ int run_benchmark(unsigned int buffer_size)
         }
 
         floodcache(); //Flood out rand array and access info for "clean" start
-
+        char y;
         for (unsigned int n = 0; n<buffer_size;n++)//want all of our buffer to first be stored into the cache.
         {
-                char y = buffer[n];
+                y = buffer[n];
+
         }
+        cout << y;
 
-
+        const int iters = 10;
 
         //time this
+        char o;
         clock_gettime(CLOCK_MONOTONIC_RAW, &t0);
-        for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
+        for (unsigned int z = 0; z < iters; z++)
+        {
+
+                for (unsigned int i = 0; i<buffer_size; i++) //access a part of memory #accesses times
                 {
-                        access_val(buffer, rand_array[i]);
+                        o = buffer[rand_array[i]];
                 }
+        }
         //time end. mean time = div by iters.
         clock_gettime(CLOCK_MONOTONIC_RAW, &t1);
+        cout << o << '\t';
         const double time_span = (NSECS_IN_SEC * (t1.tv_sec - t0.tv_sec) + (t1.tv_nsec - t0.tv_nsec)) / (double) buffer_size;
         long double mean_time = time_span;
 
@@ -73,7 +78,7 @@ int run_benchmark(unsigned int buffer_size)
         clock_gettime(CLOCK_MONOTONIC_RAW, &t3);
         const double rand_array_time = (NSECS_IN_SEC * (t3.tv_sec - t2.tv_sec) + (t3.tv_nsec - t2.tv_nsec)) / (double) buffer_size;
         //Subtract time to accesss vals consecutively in array/iters
-        long double adjusted_time = time_span - rand_array_time;
+        long double adjusted_time = time_span - (iters * rand_array_time);
 
         cout << buffer_size << "\t\t\t" << mean_time << "\t\t" <<adjusted_time << '\n';
 
