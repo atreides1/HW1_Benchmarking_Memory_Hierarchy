@@ -1,7 +1,11 @@
 # HW1_Benchmarking_Memory_Hierarchy
 Homework assignment # 1 for CS 389 - Brought to you by Sierra Schlott and Mercy Bhakta
 
-Important files: 
+Important files: benchmark.cpp
+
+Part 1: Please see benchmark.cpp. 
+
+Part 2:
 
 Answers to Part 3:
 
