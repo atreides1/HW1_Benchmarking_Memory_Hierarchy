@@ -3,9 +3,9 @@ Homework assignment # 1 for CS 389 - Brought to you by Sierra Schlott and Mercy 
 
 Important files: benchmark.cpp
 
-Part 1: Please see benchmark.cpp. 
+Part 1: Please see benchmark.cpp. The output produced is <buffer size (bytes)> <Raw Mean Time(ns)> <Adjusted Mean Time (ns)>
 
-Part 2:
+Part 2: See mean adjusted scatter.PNG. 
 
 Answers to Part 3:
 
